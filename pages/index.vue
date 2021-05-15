@@ -61,6 +61,7 @@
             /> 
           </div>
         </div>
+        
       </div>
     </div>
   </div>
@@ -71,12 +72,15 @@
 const CP_HOST = 1229;
 const ID_ARTICLE = 431103;
 
-//import QuoteOption from '~/components/QuoteOption.vue'
+import QuoteOption from '~/components/QuoteOption.vue'
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
+//Instale awesome para poder usar iconos en el componente QuoteOption
 
 export default {
 
   components: {
-    //QuoteOption,
+    QuoteOption,
   },
 
   data(){
@@ -84,15 +88,22 @@ export default {
       options: [],
       postalCode: '',
       loading: false,
+      component: {}
     }
   },
 
   computed:{
+    //Ordene los datos usando la funcion nativa de javaScript "Sort()", pueden ver los resultados en el console.log, para ordenar de mayor a menor cambiar total0 por totaln
     optionsOrder(){
-      /**
-       * Code
-      */
-      return this.options
+      let data = this.options;
+      if(data.length>0){
+        console.log("Datos sin ordenar : ");
+        console.log(data);
+        data.sort((total0, totaln) => total0.Total - totaln.Total)
+        console.log("Datos ordenados : ");
+        console.log(data);
+      }
+      return data
     },
     txtSubmit(){
       return this.loading ? 'Cotizando...' : 'Cotizar'
@@ -120,7 +131,8 @@ export default {
           return
         } else {
           this.loading = true
-          await fetch(`/api/item/${ID_ARTICLE}/cp/${this.postalCode}/cp_host/${CP_HOST}`)
+          // En este paso agregue la URL de la api libreOpcion, previamente estaba apuntando a localHost
+          await fetch(`https://envios.libreopcion.com/item/${ID_ARTICLE}/cp/${this.postalCode}/cp_host/${CP_HOST}`)
           .then((response) => {
             return response.json()
           })
@@ -136,7 +148,7 @@ export default {
     }
 
   },
-
+  
   head () {
     return {
       title: 'Cotizador de envíos',
@@ -169,6 +181,21 @@ export default {
   }
   .list{
     padding: 15px;
+  }
+  //Styles agregados.
+  .options{
+    display:flex;
+		flex-direction: row;
+		width: 100%;
+		justify-content: start;
+		align-items: center;
+    margin-top:40px;
+    text-align: center;
+    flex-wrap:wrap;
+    @media screen and (max-width: 992px){
+            flex-direction: column;
+            justify-content: center;
+    }
   }
 }
 </style>

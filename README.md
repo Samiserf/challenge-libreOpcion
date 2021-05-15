@@ -25,7 +25,7 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 ## Ejercicio
 
-1. Clone el repositorio en su entorno local
+1. Clone el repositorio en su entorno local 
 
 2. En pages/index.vue ordene y liste los elementos de options con el siguiente criterio:
 	
@@ -42,3 +42,5 @@ Para ello use la variable computada optionsOrder
 Puede usar estilos css propios para el componente, no es necesario el uso de estilos de bootstrap
 
 4. Guarde los cambios en su repositorio
+
+## By Lucio Filetto
